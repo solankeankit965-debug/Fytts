@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore FYTTS, a personal fashion fit companion, through its interactive Figma prototype.">
+  <meta name="theme-color" content="#f7f4ec">
+  <title>FYTTS — It gets you.</title>
+  <style>
+    :root { color-scheme: light; --paper:#f7f4ec; --ink:#171714; --lime:#d9f33e; --line:#d7d2c7; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { font:inherit; cursor:pointer; }
+    a { color:inherit; }
+    header { max-width:1800px; margin:auto; padding:22px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .identity { display:flex; align-items:center; gap:20px; }
+    .wordmark { font-weight:900; font-size:34px; letter-spacing:-2px; line-height:1; }
+    .tagline { border-left:1px solid var(--line); padding-left:20px; font-size:12px; line-height:1.5; }
+    .tagline strong { display:block; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; }
+    .tools { display:flex; gap:10px; align-items:center; }
+    .action { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:11px 16px; border:1px solid var(--ink); border-radius:4px; background:transparent; color:var(--ink); text-decoration:none; font-size:12px; font-weight:700; gap:10px; white-space:nowrap; }
+    .action.primary { background:var(--ink); color:var(--paper); }
+    .action:hover { background:var(--lime); color:var(--ink); }
+    .action:focus-visible { outline:3px solid #4263e8; outline-offset:3px; }
+    main { max-width:1800px; margin:0 auto; padding:0 32px 18px; }
+    .caption { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-top:1px solid var(--ink); gap:16px; }
+    h1 { margin:0; font-size:11px; letter-spacing:1.3px; text-transform:uppercase; }
+    .status { font-size:11px; color:#6b695f; display:flex; align-items:center; gap:7px; }
+    .dot { width:7px; height:7px; border-radius:50%; background:var(--ink); }
+    .viewer { position:relative; background:#eae6dc; border:1px solid var(--line); height:calc(100svh - 181px); min-height:520px; overflow:hidden; }
+    iframe { width:100%; height:100%; display:block; border:0; background:#eae6dc; }
+    .viewer:fullscreen { height:100vh; border:0; }
+    footer { display:flex; justify-content:space-between; gap:20px; padding-top:12px; font-size:11px; line-height:1.6; color:#6b695f; }
+    footer p { margin:0; }
+    footer a { text-underline-offset:3px; }
+    .mobile-label { display:none; }
+    @media(max-width:700px) {
+      header { padding:18px 16px; gap:12px; }
+      .wordmark { font-size:29px; }
+      .tagline,.fullscreen { display:none; }
+      .tools { gap:6px; }
+      .action { padding:10px 12px; min-height:40px; font-size:11px; }
+      main { padding:0 12px 14px; }
+      .caption { padding:12px 2px; }
+      .viewer { height:calc(100svh - 169px); min-height:500px; }
+      footer { padding:10px 2px 0; }
+      footer p:last-child { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="identity">
+      <div class="wordmark" aria-label="FYTTS">fytts</div>
+      <div class="tagline"><strong>It gets you.</strong>Your fit, remembered.</div>
+    </div>
+    <div class="tools" aria-label="Prototype controls">
+      <button class="action" id="restart" type="button">Restart <span aria-hidden="true">↺</span></button>
+      <button class="action fullscreen" id="fullscreen" type="button">Full screen <span aria-hidden="true">↗</span></button>
+      <a class="action primary" href="https://www.figma.com/proto/usMaGIeCu9tHEv1TVYS7IK/sid?node-id=11-526&amp;starting-point-node-id=11%3A492" target="_blank" rel="noopener noreferrer">Open in Figma <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main>
+    <div class="caption"><h1>Explore the prototype</h1><div class="status"><span class="dot" aria-hidden="true"></span>Interactive Figma preview</div></div>
+    <div class="viewer" id="viewer">
+      <iframe id="prototype" title="FYTTS interactive fashion fit prototype" src="https://embed.figma.com/proto/usMaGIeCu9tHEv1TVYS7IK/sid?node-id=11-526&amp;p=f&amp;scaling=scale-down&amp;content-scaling=fixed&amp;page-id=0%3A1&amp;starting-point-node-id=11%3A492&amp;show-proto-sidebar=1&amp;embed-host=share" allow="fullscreen" allowfullscreen></iframe>
+    </div>
+    <footer><p>Click inside the preview to try the journeys. Use Restart to return to the welcome screen.</p><p>Can’t see the preview? <a href="https://www.figma.com/proto/usMaGIeCu9tHEv1TVYS7IK/sid?node-id=11-492" target="_blank" rel="noopener noreferrer">Open it directly.</a></p></footer>
+  </main>
+  <script>
+    const prototype = document.getElementById('prototype');
+    const viewer = document.getElementById('viewer');
+    const fullscreen = document.getElementById('fullscreen');
+    document.getElementById('restart').addEventListener('click', () => {
+      const url = new URL(prototype.src);
+      url.searchParams.set('node-id', '11-492');
+      url.searchParams.set('starting-point-node-id', '11:492');
+      prototype.src = url.toString();
+    });
+    if (!viewer.requestFullscreen) fullscreen.hidden = true;
+    fullscreen.addEventListener('click', async () => {
+      try { await viewer.requestFullscreen(); }
+      catch { window.open(prototype.src, '_blank', 'noopener,noreferrer'); }
+    });
+  </script>
+</body>
+</html>

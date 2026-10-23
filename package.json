@@ -1,0 +1,28 @@
+{
+  "name": "fytts",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run build -w @fytts/contracts && npm run build -w @fytts/api && concurrently -k -n api,web \"npm run dev -w @fytts/api\" \"npm run dev -w @fytts/web\"",
+    "build": "npm run build -w @fytts/contracts && npm run generate -w @fytts/api && npm run build -w @fytts/api && npm run build -w @fytts/web",
+    "typecheck": "npm run build -w @fytts/contracts && npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @fytts/contracts && npm run test -w @fytts/api",
+    "start": "concurrently -k -n api,web \"npm run start -w @fytts/api\" \"npm run start -w @fytts/web\"",
+    "dev:local": "AUTH_MODE=local DATA_MODE=file npm run dev",
+    "db:validate": "npm run generate -w @fytts/api",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,css,cjs,json}\" \"packages/**/*.{ts,json}\" \"*.{json,ts,md}\"",
+    "format:check": "prettier --check \"apps/**/*.{ts,tsx,css,cjs,json}\" \"packages/**/*.{ts,json}\" \"*.{json,ts,md}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.3",
+    "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,27 @@
+datasource db {
+ provider = "postgresql"
+}
+model Profile {
+ id String @id @db.Uuid
+ data Json
+ @@map("profiles")
+}
+model Garment {
+ id String @id @db.Uuid
+ ownerId String @map("owner_id") @db.Uuid
+ data Json
+ imagePath String? @map("image_path")
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+ updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+ @@index([ownerId,createdAt(sort: Desc)], map:"garments_owner_created")
+ @@map("garments")
+}
+model Comparison {
+ id String @id @db.Uuid
+ ownerId String @map("owner_id") @db.Uuid
+ data Json
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+ updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+ @@index([ownerId,createdAt(sort: Desc)], map:"comparisons_owner_created")
+ @@map("comparisons")
+}
